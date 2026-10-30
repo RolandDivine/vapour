@@ -7,7 +7,7 @@ use {
     },
 };
 
-const SOL_SYMBOL: &str = "◎";
+const SOL_SYMBOL: &str = "Ⓥ";
 
 #[derive(PartialEq, Eq)]
 pub enum TokenType {

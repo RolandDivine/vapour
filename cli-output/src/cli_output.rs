@@ -1133,7 +1133,7 @@ impl VerboseDisplay for CliKeyedEpochRewards {
                 Some(reward) => {
                     writeln!(
                         w,
-                        "  {:<44}  {:<11}  {:<23}  ◎{:<17.9}  ◎{:<19.9}  {:>13.9}%  {:>7}  {:>10}",
+                        "  {:<44}  {:<11}  {:<23}  Ⓥ{:<17.9}  Ⓥ{:<19.9}  {:>13.9}%  {:>7}  {:>10}",
                         keyed_reward.address,
                         reward.effective_slot,
                         Utc.timestamp_opt(reward.block_time, 0).unwrap(),
@@ -1180,7 +1180,7 @@ impl fmt::Display for CliKeyedEpochRewards {
                 Some(reward) => {
                     writeln!(
                         f,
-                        "  {:<44}  ◎{:<17.9}  ◎{:<17.9}  {:>13.9}%  {:>7}  {:>10}",
+                        "  {:<44}  Ⓥ{:<17.9}  Ⓥ{:<17.9}  {:>13.9}%  {:>7}  {:>10}",
                         keyed_reward.address,
                         build_balance_message(reward.amount, false, false),
                         build_balance_message(reward.post_balance, false, false),
@@ -1303,7 +1303,7 @@ fn show_epoch_credits(
                 )?;
                 writeln!(
                     f,
-                    "  lamports earned: {} ({:.4} SOL)",
+                    "  lamports earned: {} ({:.4} VAP)",
                     ag.lamports_earned,
                     ag.lamports_earned as f64 / LAMPORTS_PER_SOL as f64
                 )?;
@@ -1403,7 +1403,7 @@ fn show_epoch_rewards(
             format_as!(
                 f,
                 "{},{},{},{},{},{}%,{},{}",
-                "  {:<6}  {:<11}  {:<26}  ◎{:<17.11}  ◎{:<17.11}  {:>13.3}%  {:>14}  {:>10}",
+                "  {:<6}  {:<11}  {:<26}  Ⓥ{:<17.11}  Ⓥ{:<17.11}  {:>13.3}%  {:>14}  {:>10}",
                 fmt,
                 reward.epoch,
                 reward.effective_slot,
@@ -1676,7 +1676,7 @@ impl fmt::Display for CliStakeHistory {
                 if self.use_lamports_unit {
                     "lamports"
                 } else {
-                    "SOL"
+                    "VAP"
                 }
             )?;
         }
@@ -2355,7 +2355,7 @@ impl fmt::Display for CliAccountBalances {
                 "{:<44}  {}",
                 account.address,
                 &format!(
-                    "{} SOL",
+                    "{} VAP",
                     build_balance_message(account.lamports, false, false)
                 ),
             )?;
@@ -2395,13 +2395,13 @@ impl fmt::Display for CliSupply {
         writeln_name_value(
             f,
             "Total:",
-            &format!("{} SOL", build_balance_message(self.total, false, false)),
+            &format!("{} VAP", build_balance_message(self.total, false, false)),
         )?;
         writeln_name_value(
             f,
             "Circulating:",
             &format!(
-                "{} SOL",
+                "{} VAP",
                 build_balance_message(self.circulating, false, false)
             ),
         )?;
@@ -2409,7 +2409,7 @@ impl fmt::Display for CliSupply {
             f,
             "Non-Circulating:",
             &format!(
-                "{} SOL",
+                "{} VAP",
                 build_balance_message(self.non_circulating, false, false)
             ),
         )?;
@@ -3154,7 +3154,7 @@ impl CliBlock {
                         "-".to_string()
                     },
                     format!(
-                        "{}◎{:<14.9}",
+                        "{}Ⓥ{:<14.9}",
                         sign,
                         build_balance_message(reward.lamports.unsigned_abs(), false, false)
                     ),
@@ -3162,7 +3162,7 @@ impl CliBlock {
                         "          -                 -".to_string()
                     } else {
                         format!(
-                            "◎{:<19.9}  {:>13.9}%",
+                            "Ⓥ{:<19.9}  {:>13.9}%",
                             build_balance_message(reward.post_balance, false, false),
                             (reward.lamports.abs() as f64
                                 / (reward.post_balance as f64 - reward.lamports as f64))
@@ -3180,7 +3180,7 @@ impl CliBlock {
             let sign = if total_rewards < 0 { "-" } else { "" };
             writeln!(
                 f,
-                "Total Rewards: {}◎{:<12.9}",
+                "Total Rewards: {}Ⓥ{:<12.9}",
                 sign,
                 build_balance_message(total_rewards.unsigned_abs(), false, false)
             )?;
@@ -3898,8 +3898,8 @@ mod tests {
         let expected_epoch_rewards_output =
             "Epoch Rewards:\n  \
              Epoch   Reward Slot  Time                        Amount              New Balance         Percent Change             APR  Commission\n  \
-             1       100          1970-01-01 00:00:00 UTC  ◎0.00000001         ◎0.0000001                 11.000%          10.00%          1%\n  \
-             2       200          1970-01-12 13:46:40 UTC  ◎0.000000012        ◎0.0000001                 11.000%          13.00%          1%\n";
+             1       100          1970-01-01 00:00:00 UTC  Ⓥ0.00000001         Ⓥ0.0000001                 11.000%          10.00%          1%\n  \
+             2       200          1970-01-12 13:46:40 UTC  Ⓥ0.000000012        Ⓥ0.0000001                 11.000%          13.00%          1%\n";
         assert_eq!(
             s,
             format!("{expected_output_common}{expected_epoch_rewards_output}")

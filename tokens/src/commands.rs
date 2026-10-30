@@ -139,7 +139,7 @@ pub enum Error {
     ProgramError(#[from] ProgramError),
     #[error("Exit signal received")]
     ExitSignal,
-    #[error("Bad input data for SOL value: {input}")]
+    #[error("Bad input data for VAP value: {input}")]
     BadInputNumberError { input: String },
 }
 
@@ -912,7 +912,7 @@ pub fn process_balances(
     let token = if let Some(spl_token_args) = &args.spl_token_args {
         spl_token_args.mint.to_string()
     } else {
-        "◎".to_string()
+        "Ⓥ".to_string()
     };
     println!("{} {}", style("Token:").bold(), token);
 

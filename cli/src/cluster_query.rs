@@ -228,7 +228,7 @@ impl ClusterQuerySubCommands for App<'_, '_> {
         )
         .subcommand(
             SubCommand::with_name("supply")
-                .about("Get information about the cluster supply of SOL")
+                .about("Get information about the cluster supply of VAP")
                 .arg(
                     Arg::with_name("print_accounts")
                         .long("print-accounts")
@@ -238,7 +238,7 @@ impl ClusterQuerySubCommands for App<'_, '_> {
         )
         .subcommand(
             SubCommand::with_name("total-supply")
-                .about("Get total number of SOL")
+                .about("Get total number of VAP")
                 .setting(AppSettings::Hidden),
         )
         .subcommand(
@@ -297,7 +297,7 @@ impl ClusterQuerySubCommands for App<'_, '_> {
                     Arg::with_name("lamports")
                         .long("lamports")
                         .takes_value(false)
-                        .help("Display balance in lamports instead of SOL"),
+                        .help("Display balance in droplets (lamports) instead of VAP"),
                 )
                 .arg(pubkey!(
                     Arg::with_name("vote_account_pubkeys")
@@ -322,7 +322,7 @@ impl ClusterQuerySubCommands for App<'_, '_> {
                     Arg::with_name("lamports")
                         .long("lamports")
                         .takes_value(false)
-                        .help("Display balance in lamports instead of SOL"),
+                        .help("Display balance in droplets (lamports) instead of VAP"),
                 )
                 .arg(
                     Arg::with_name("number")
@@ -445,7 +445,7 @@ impl ClusterQuerySubCommands for App<'_, '_> {
                     Arg::with_name("lamports")
                         .long("lamports")
                         .takes_value(false)
-                        .help("Display rent in lamports instead of SOL"),
+                        .help("Display rent in droplets (lamports) instead of VAP"),
                 ),
         )
     }
@@ -1435,7 +1435,7 @@ pub async fn process_total_supply(
 ) -> ProcessResult {
     let supply = rpc_client.supply().await?.value;
     Ok(format!(
-        "{} SOL",
+        "{} VAP",
         build_balance_message(supply.total, false, false)
     ))
 }

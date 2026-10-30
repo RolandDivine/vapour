@@ -228,7 +228,7 @@ pub fn resolve_signer(
     )
 }
 
-/// Convert a SOL amount string to lamports.
+/// Convert a VAP amount string to lamports.
 ///
 /// Accepts plain or decimal strings ("50", "0.03", ".5", "1.").
 /// Any decimal places beyond 9 are truncated.

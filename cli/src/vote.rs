@@ -501,7 +501,7 @@ impl VoteSubCommands for App<'_, '_> {
                     Arg::with_name("lamports")
                         .long("lamports")
                         .takes_value(false)
-                        .help("Display balance in lamports instead of SOL"),
+                        .help("Display balance in droplets (lamports) instead of VAP"),
                 )
                 .arg(
                     Arg::with_name("with_rewards")
@@ -552,7 +552,7 @@ impl VoteSubCommands for App<'_, '_> {
                         .index(2)
                         .value_name("RECIPIENT_ADDRESS")
                         .required(true),
-                    "The recipient of withdrawn SOL."
+                    "The recipient of withdrawn VAP."
                 ))
                 .arg(
                     Arg::with_name("amount")
@@ -595,7 +595,7 @@ impl VoteSubCommands for App<'_, '_> {
                         .index(2)
                         .value_name("RECIPIENT_ADDRESS")
                         .required(true),
-                    "The recipient of all withdrawn SOL."
+                    "The recipient of all withdrawn VAP."
                 ))
                 .arg(
                     Arg::with_name("authorized_withdrawer")

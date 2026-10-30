@@ -68,10 +68,10 @@ pub enum FaucetError {
     #[error("transaction_length from faucet: 0")]
     NoDataReceived,
 
-    #[error("request too large; req: ◎{0}, cap: ◎{1}")]
+    #[error("request too large; req: Ⓥ{0}, cap: Ⓥ{1}")]
     PerRequestCapExceeded(String, String),
 
-    #[error("limit reached; req: ◎{0}, to: {1}, current: ◎{2}, cap: ◎{3}")]
+    #[error("limit reached; req: Ⓥ{0}, to: {1}, current: Ⓥ{2}, cap: Ⓥ{3}")]
     PerTimeCapExceeded(String, String, String, String),
 }
 
@@ -127,7 +127,7 @@ impl Faucet {
             && per_time_cap < per_request_cap
         {
             warn!(
-                "per_time_cap {} SOL < per_request_cap {} SOL; maximum single requests will fail",
+                "per_time_cap {} VAP < per_request_cap {} VAP; maximum single requests will fail",
                 build_balance_message(per_time_cap, false, false),
                 build_balance_message(per_request_cap, false, false),
             );
@@ -171,7 +171,7 @@ impl Faucet {
     /// Checks per-request and per-time-ip limits; if both pass, this method returns a signed
     /// SystemProgram::Transfer transaction from the faucet keypair to the requested recipient. If
     /// the request exceeds this per-request limit, this method returns a signed SPL Memo
-    /// transaction with the memo: `"request too large; req: <REQUEST> SOL cap: <CAP> SOL"`
+    /// transaction with the memo: `"request too large; req: <REQUEST> VAP cap: <CAP> VAP"`
     pub fn build_airdrop_transaction(
         &mut self,
         req: FaucetRequest,
@@ -186,7 +186,7 @@ impl Faucet {
             } => {
                 let mint_pubkey = self.faucet_keypair.pubkey();
                 info!(
-                    "Requesting airdrop of {} SOL to {:?}",
+                    "Requesting airdrop of {} VAP to {:?}",
                     build_balance_message(lamports, false, false),
                     to
                 );
@@ -680,7 +680,7 @@ mod tests {
 
             assert_eq!(message.instructions.len(), 1);
             let parsed_memo = std::str::from_utf8(&message.instructions[0].data).unwrap();
-            let expected_memo = "request too large; req: ◎0.000000002, cap: ◎0.000000001";
+            let expected_memo = "request too large; req: Ⓥ0.000000002, cap: Ⓥ0.000000001";
             assert_eq!(parsed_memo, expected_memo);
             assert_eq!(memo, expected_memo);
         } else {
